@@ -1,0 +1,12 @@
+{% extends "app_crm/basic.html" %}
+
+<title>{% block title %}Request details{% endblock %}</title>
+
+{% block content %}
+    <h2>Enter request details</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Confirm</button>
+    </form>
+{% endblock %}

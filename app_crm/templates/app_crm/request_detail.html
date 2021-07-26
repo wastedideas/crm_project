@@ -1,0 +1,18 @@
+{% extends "app_crm/basic.html" %}
+
+<title>{% block title %}{{ request_detail.title }}{% endblock %}</title>
+
+{% block content %}
+    <h2>{{ request_detail.title }}</h2>
+    <div>Request text: {{ request_detail.text }}</div>
+    <div>Creation date:{{ request_detail.creation_date }}</div>
+    <div>Request type: {{ request_detail.get_request_type_display }}</div>
+    <div>Request status: {{ request_detail.get_request_status_display }}</div>
+    <div>Request owner: {{ request_detail.customer }}</div>
+    {% if perms.app_crm.change_requests and perms.app_crm.delete_requests %}
+        <div>
+            <a href="{% url 'edit_request' request_detail.pk %}">Edit</a>
+            <a href="{% url 'delete_request' request_detail.pk %}">Delete</a>
+        </div>
+    {% endif %}
+{% endblock %}

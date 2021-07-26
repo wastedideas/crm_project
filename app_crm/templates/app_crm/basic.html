@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        * {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a style="margin-right: 30px;" href="{% url 'main_page' %}">Main page</a>
+    {% if request.user.is_authenticated %}
+        <h1> Welcome, {{ request.user.username }}!</h1>
+        <a style="margin-right: 30px;" href="{% url 'logout' %}">Exit</a>
+        <a style="margin-right: 30px;" href="{% url 'personal_area' user.pk %}">Personal area</a>
+    {% else %}
+        <span>To create a new request </span>
+        <a href="{% url 'login' %}">Log in</a>
+        <span> or </span>
+        <a href="{% url 'register' %}">register</a>
+    {% endif %}
+</header>
+{% block content %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,5 @@
+pytelegrambotapi==3.8.1
+django==3.2.5
+python-dotenv==0.18.0
+django-filter==2.4.0
+

@@ -1,0 +1,29 @@
+{% extends "app_crm/basic.html" %}
+
+<title>{% block title %}Requests{% endblock %}</title>
+
+{% block content %}
+    <h2>Requests</h2>
+    <div style="display:flex; max-width: 1000px">
+        {% if requests_list %}
+            <ul>
+                {% for request in requests_list %}
+                <li style="padding-bottom: 10px">
+                    <a style="color: #008000; font-weight: 700;" href="{% url 'request_detail' request.pk %}">{{ request }} ({{ request.creation_date}})</a>
+                    {% if perms.app_crm.change_requests  and perms.app_crm.delete_requests %}
+                        <a style="color: #0000ff" href="{% url 'edit_request' request.pk %}">Edit</a>
+                        <a style="color: #ff0000;" href="{% url 'delete_request' request.pk %}">Delete</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No requests.</p>
+        {% endif %}
+        <form method="get" style="margin-left: auto">
+            <h3>Filter requests:</h3>
+            {{ filter.form.as_p }}
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+{% endblock %}

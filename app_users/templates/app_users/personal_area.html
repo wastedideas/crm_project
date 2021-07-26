@@ -1,0 +1,43 @@
+{% extends "app_crm/basic.html" %}
+{% load static %}
+
+<title>{% block title %}Personal area{% endblock %}</title>
+
+{% block content %}
+    <style>
+        .tg_link {
+            display: block;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background-image: url("{% static 'app_users/tg.svg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <h2>Personal area</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save data</button>
+    </form>
+    <div style="padding: 20px 0 20px 0;">
+        To receive notifications about the status of requests, connect the bot Telegram-bot:
+        <a class="tg_link" href="https://t.me/{{ bot_name }}?start={{ user.unique_code }}" target="_blank"></a>
+    </div>
+    <div>
+        {% if users_requests %}
+            Your requests:
+            <ul>
+                {% for i_request in users_requests %}
+                    <li style="padding-bottom: 10px;">
+                        <a style="color: #008000; font-weight: 700;" href="{% url 'request_detail' i_request.pk %}">{{ i_request }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div>You have no requests.</div>
+        {% endif %}
+    </div>
+{% endblock %}
